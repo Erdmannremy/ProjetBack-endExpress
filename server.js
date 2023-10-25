@@ -6,6 +6,7 @@ const express = require('express');
 require('express-async-errors');
 
 // Importation du reste
+const cors = require('cors');
 const router = require('./routers/router');
 
 
@@ -27,6 +28,8 @@ if (NODE_ENV === 'development') {
 
 // Creation du serveur webAPI
 const app = express();
+// Utilisation du CORS juste après l'init du serveur express sans quoi, cela ne fonctionnera pas
+app.use(cors());
 app.use(express.json());
 
 // Ajout du routing --> respect du RESTfull on ajoute '/api' comme route de base
