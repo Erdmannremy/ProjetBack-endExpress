@@ -10,7 +10,7 @@ CREATE TABLE Marque(
    PRIMARY KEY(__marque_id___int)
 );
 
-CREATE TABLE Client_(
+CREATE TABLE users_(
    ___client_id___int VARCHAR(250),
    Nom_client___int VARCHAR(50) NOT NULL,
    Prénom_client___int_ VARCHAR(50) NOT NULL,
