@@ -23,7 +23,7 @@ db.sequelize.authenticate()
 
 // Migration de la db
 if (NODE_ENV === 'development') {
-    db.Sqlserver.sync({ alter: { drop: false}});
+    db.sequelize.sync({ alter: { drop: false}});
 };
 
 // Creation du serveur webAPI

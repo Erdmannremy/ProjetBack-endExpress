@@ -1,15 +1,15 @@
-const {sqlserver, DataTypes, ModelStatic } = require('sqlserver');
+const {sequelize, DataTypes, ModelStatic } = require('sequelize');
 
 /**
  * Fonction pour créer un model Character (donc table de db)
  * Le JSDoc sert à l'autocomplétion
- * @param {sqlserver} sqlserver
+ * @param {sequelize} sequelize
  * @returns {ModelStatic<any>}
  */
 
-module.exports = (sqlserver) => {
+module.exports = (sequelize) => {
     // Définition de l'object sequelize (db)
-    const Character = sqlserver.define('Character', {
+    const Character = sequelize.define('Character', {
         // L'id se crée automatiquement si non spécifié ici
         firstname: {
             type: DataTypes.STRING(50),
