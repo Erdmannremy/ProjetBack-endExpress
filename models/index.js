@@ -1,11 +1,11 @@
 // Importation l'object Sequelize
-const { Sequelize } = require('sequelize');
+const { sqlserver } = require('sqlserver');
 
 // Initilisation une nouvelle instance de l'object avec SQLite en paramètre
-const sequelize = new Sequelize({
+const sql = new Sqlserver({
     dialect: 'mssql',
-    database: 'sequelizeDemo',
-    username: 'sa',
+    database: 'sqlserver',
+    username: 'db',
     password: process.env.DB_PASSWORD,
     host: 'localhost',
     port: 1433 // Le port de base de SQL Server
@@ -15,10 +15,10 @@ const sequelize = new Sequelize({
 const db = {};
 module.exports = db;
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+db.Sqlserver = Sqlserver;
+db.Sqlserver = Sqlserver;
 
 // Ajout des models
-db.Character = require('./character.model')(sequelize);
-db.Auth = require('./auth.model')(sequelize);
+db.Character = require('./character.model')(sqlserver);
+db.Auth = require('./auth.model')(sqlserver);
 
