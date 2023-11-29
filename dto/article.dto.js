@@ -1,14 +1,7 @@
-class articleDTO {
-
-    id;
-    login;
-    hashedPassword;
-
-    constructor(data) {
-        this.id = data.id;
-        this.login = data.login;
-        this.hashedPassword = data.hashedPassword;
-    }
-}
+const articleDTO = {
+  id: Number,
+  title: String,
+  content: String
+};
 
 module.exports = articleDTO;

@@ -1,10 +1,10 @@
 const authRouter = require('./auth.router');
 const characterRouter = require('./character.router');
 const movieRouter = require('./movie.router');
-const articleRouter = require('/article.router');
+const articleRouter = require('./article.router');
 
 
-
+rs
 const router = require('express').Router();
 
 router.use('/character', characterRouter);
