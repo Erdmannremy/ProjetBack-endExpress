@@ -5,7 +5,7 @@ const app = express();
 const Article = require('./models/article');
 
 // Créez un nouveau contrôleur
-class ArticleController {
+const ArticleController = {
 
   // Méthode pour récupérer la liste des articles
   getArticles(req, res) {
@@ -14,7 +14,7 @@ class ArticleController {
 
     // Envoyez la liste des articles au client
     res.send(articles);
-  }
+  },
 
   // Méthode pour créer un nouvel article
   createArticle(req, res) {
@@ -32,7 +32,7 @@ class ArticleController {
 
     // Envoyez une réponse au client
     res.sendStatus(201);
-  }
+  },
 
   // Méthode pour mettre à jour un article existant
   updateArticle(req, res) {
@@ -51,7 +51,7 @@ class ArticleController {
 
     // Envoyez une réponse au client
     res.sendStatus(200);
-  }
+  },
 
   // Méthode pour supprimer un article existant
   deleteArticle(req, res) {
@@ -66,8 +66,24 @@ class ArticleController {
   }
 }
 
-// Ajoutez le contrôleur à l'application
-app.use('/articles', new ArticleController());
 
-// Lancez l'application
-app.listen(3000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
