@@ -1,8 +1,9 @@
+
 const express = require('express');
 const router = express.Router();
 
 // Importez le contrôleur d'article
-const ArticleController = require('./article.controller');
+const ArticleController = require('../controllers/article.controller');
 
 // Définissez les routes
 router.get('/', ArticleController.getArticles);

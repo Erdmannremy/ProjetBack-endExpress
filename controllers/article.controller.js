@@ -1,89 +1,45 @@
-const express = require('express');
-const app = express();
 
-// Importez le modèle d'article
-const Article = require('./models/article');
+const db = require('../models');
+const Article = db.Article;
 
-// Créez un nouveau contrôleur
-const ArticleController = {
+const articleController = {
 
-  // Méthode pour récupérer la liste des articles
-  getArticles(req, res) {
-    // Récupérez la liste des articles depuis la base de données
-    const articles = Article.find();
-
-    // Envoyez la liste des articles au client
-    res.send(articles);
+  // Retourne la liste de tous les articles
+  getArticles: async (req, res) => {
+    const articles = await Article.findAll();
+    res.json(articles);
   },
 
-  // Méthode pour créer un nouvel article
-  createArticle(req, res) {
-    // Obtenez les données de l'article du client
-    const body = req.body;
-
-    // Créez un nouvel objet article
+  // Crée un nouvel article
+  createArticle: async (req, res) => {
     const article = new Article({
-      title: body.title,
-      content: body.content
+      title: req.body.title,
+      content: req.body.content,
+      authorId: req.body.authorId,
     });
-
-    // Enregistrez l'article dans la base de données
-    article.save();
-
-    // Envoyez une réponse au client
-    res.sendStatus(201);
+    await article.save();
+    res.json(article);
   },
 
-  // Méthode pour mettre à jour un article existant
-  updateArticle(req, res) {
-    // Obtenez les données de l'article du client
-    const body = req.body;
-
-    // Obtenez l'article à partir de la base de données
-    const article = Article.findById(body.id);
-
-    // Mettez à jour les données de l'article
-    article.title = body.title;
-    article.content = body.content;
-
-    // Enregistrez les modifications dans la base de données
-    article.save();
-
-    // Envoyez une réponse au client
-    res.sendStatus(200);
+  // Met à jour un article existant
+  updateArticle: async (req, res) => {
+    const article = await Article.findOne({
+      id: req.params.id,
+    });
+    article.title = req.body.title;
+    article.content = req.body.content;
+    article.authorId = req.body.authorId;
+    await article.save();
+    res.json(article);
   },
 
-  // Méthode pour supprimer un article existant
-  deleteArticle(req, res) {
-    // Obtenez l'article à partir de la base de données
-    const article = Article.findById(req.params.id);
+  // Supprime un article existant
+  deleteArticle: async (req, res) => {
+    const deletedRows = await Article.destroy({
+      id: req.params.id,
+    });
+    res.json({ deletedRows });
+  },
+};
 
-    // Supprimez l'article de la base de données
-    article.remove();
-
-    // Envoyez une réponse au client
-    res.sendStatus(204);
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+module.exports = articleController;

@@ -1,7 +1,8 @@
-const articleDTO = {
-  id: Number,
+const articleDTO = require('./controllers/articleDTO.controller');
+const ArticleDTO = {
   title: String,
-  content: String
+  content: String,
+  authorId: mongoose.Types.ObjectId,
 };
 
-module.exports = articleDTO;
+module.exports = ArticleDTO;

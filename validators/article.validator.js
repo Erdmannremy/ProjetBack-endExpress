@@ -1,14 +1,9 @@
-const Validator = require('validator');
+const Joi = require('joi');
 
-const titleValidator = (value: string) => {
-  return Validator.isString(value) && value.length >= 3;
-};
+const articleValidator = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+  authorId: Joi.string().required(),
+});
 
-const contentValidator = (value: string) => {
-  return Validator.isString(value) && value.length >= 10;
-};
-
-module.exports = {
-  title: titleValidator,
-  content: contentValidator
-};
+module.exports = articleValidator;

@@ -1,81 +1,46 @@
-const mongoose = require('mongoose');
-const ArticleSchema = mongoose.Schema({
-  title: String,
-  content: String
-});
-const ArticleModel = mongoose.model('Article', ArticleSchema);
 
-module.exports = {
-  find(): Promise<Article[]> {
-    return ArticleModel.find({});
-  },
-  create(article: DTO): Promise<Article> {
-    const newArticle = new ArticleModel({
-      title: article.title,
-      content: article.content
-    });
-    return newArticle.save();
-  },
-  update(article: DTO): Promise<Article> {
-    const existingArticle = ArticleModel.findById(article.id);
-    return existingArticle.then((article) => {
-      article.title = article.title;
-      article.content = article.content;
-      return article.save();
-    });
-  },
-  delete(id: string): Promise<void> {
-    return ArticleModel.findByIdAndRemove(id);
-  }
-};
-const authDTO  = require('../dto/auth.dto');
+
 const db = require('../models');
-const jwt = require('jsonwebtoken');
+const Article = db.Article;
 
-const authService = {
+const articleService = {
 
-    exist: async (login) => {
-        const auth = await db.Auth.findOne({
-            where: { login }
-        });
+  // Retourne la liste de tous les articles
+  getArticles: async () => {
+    const articles = await Article.findAll();
+    return articles;
+  },
 
-        return new authDTO(auth);
-    },
+  // Crée un nouvel article
+  createArticle: async (articleData) => {
+    const article = new Article({
+      title: articleData.title,
+      content: articleData.content,
+      authorId: articleData.authorId,
+    });
+    await article.save();
+    return article;
+  },
 
-    insert: async (data) => {
-        const auth = await db.Auth.create(data)
-        return new authDTO(auth)
-    },
+  // Met à jour un article existant
+  updateArticle: async (id, articleData) => {
+    const article = await Article.findOne({
+      id: id,
+    });
+    article.title = articleData.title;
+    article.content = articleData.content;
+    article.authorId = articleData.authorId;
+    await article.save();
+    return article;
+  },
 
-    addJwt: async (jwt, id) => {
-        // Vérification de l'existence de l'utilisateur
-        const userFound = await db.Auth.findOne({
-            where: { id }
-        });
-        // S'il existe, on lui donne un jwt (s'il n'en a pas encore)
-        await userFound.update({ jwt })
-
-        return userFound;
-    },
-
-    getJwt: async (id) => {
-        const jwtExist = await db.Auth.findOne({
-            where: { id }
-        });
-
-        return jwtExist;
-    },
-
-    verifyJwt: async (token) => {
-        const secret = process.env.JWT_SECRET;
-
-        try {
-            const decoded = jwt.verify(token, secret);
-            return true
-        } catch (err) {
-            return false
-        }
-    }
+  // Supprime un article existant
+  deleteArticle: async (id) => {
+    const deletedRows = await Article.destroy({
+      id: id,
+    });
+    return deletedRows === 1;
+  },
 };
 
-module.exports = authService;
+module.exports = articleService;

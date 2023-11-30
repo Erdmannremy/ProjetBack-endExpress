@@ -4,7 +4,7 @@ const movieRouter = require('./movie.router');
 const articleRouter = require('./article.router');
 
 
-rs
+
 const router = require('express').Router();
 
 router.use('/character', characterRouter);
