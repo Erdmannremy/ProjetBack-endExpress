@@ -19,6 +19,5 @@ db.sequelize = sequelize;
 
 
 // Ajout des models
-db.Character = require('./character.model')(sequelize);
 db.Auth = require('./auth.model')(sequelize);
 

@@ -9,7 +9,7 @@ const ArticleController = require('../controllers/article.controller');
 router.get('/getAll', ArticleController.getArticles);
 router.post('/create', ArticleController.createArticle);
 router.put('/update/:id', ArticleController.updateArticle);
-router.delete('/delete//:id', ArticleController.deleteArticle);
+router.delete('/delete/:id', ArticleController.deleteArticle);
 
 // Exportez le routeur
 module.exports = router;
